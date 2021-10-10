@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import { Box } from '@mui/system';
 import { Skeleton, Typography } from '@mui/material';
 import { STATIC_HOST, THUMBNAIL_NOTFOUND } from 'constants/index';
+import { useHistory } from 'react-router';
 
 Product.propTypes = {
     product: PropTypes.object,
 };
 
 function Product({ product }) {
-    const thumbnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMBNAIL_NOTFOUND
+    const history = useHistory();
+    const thumbnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMBNAIL_NOTFOUND;
+
+    const handleClick = () => {
+        history.push(`/products/${product.id}`)
+    }
+
     return (
-        <Box padding={1}>
+        <Box padding={1} onClick={handleClick}>
             <Box padding={1}>
                 <img src={thumbnailUrl} alt={product.name} width="100%" height={200} />
             </Box>
